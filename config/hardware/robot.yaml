@@ -1,0 +1,92 @@
+# Public starting profile; replace device IDs in robot.local.yaml.
+# Joint ranges and gripper spans are examples, not measured calibration.
+# Complete calibration and hardware acceptance before qualifying your robot.
+joints:
+- shoulder_pan
+- shoulder_lift
+- elbow_flex
+- wrist_flex
+- wrist_roll
+- gripper
+update_rate_hz: 60.0
+leader:
+  motors:
+    shoulder_pan: 1
+    shoulder_lift: 2
+    elbow_flex: 3
+    wrist_flex: 4
+    wrist_roll: 5
+    gripper: 6
+  baudrate: 1000000
+  serial_timeout_s: 0.05
+  port: /dev/serial/by-id/usb-YOUR_LEADER_SERIAL
+  calibration: ../calibration/leader.json
+  gripper:
+    closed_rad: 0.0
+    open_rad: 1.5
+  use_degrees: true
+  num_read_retries: 2
+follower:
+  motors:
+    shoulder_pan: 1
+    shoulder_lift: 2
+    elbow_flex: 3
+    wrist_flex: 4
+    wrist_roll: 5
+    gripper: 6
+  baudrate: 1000000
+  serial_timeout_s: 0.05
+  port: /dev/serial/by-id/usb-YOUR_FOLLOWER_SERIAL
+  calibration: ../calibration/follower.json
+  command_timeout_s: 0.25
+  gripper:
+    closed_rad: 0.0
+    open_rad: 1.5
+  use_degrees: true
+  num_read_retries: 2
+  max_relative_target: null
+  disable_torque_on_disconnect: true
+limits:
+  shoulder_pan:
+    min: -1.5
+    max: 1.5
+    velocity: 0.8
+    acceleration: 2.0
+  shoulder_lift:
+    min: -1.5
+    max: 1.5
+    velocity: 0.8
+    acceleration: 2.0
+  elbow_flex:
+    min: -1.5
+    max: 1.5
+    velocity: 0.8
+    acceleration: 2.0
+  wrist_flex:
+    min: -1.5
+    max: 1.5
+    velocity: 0.8
+    acceleration: 2.0
+  wrist_roll:
+    min: -1.5
+    max: 1.5
+    velocity: 1.0
+    acceleration: 2.0
+  gripper:
+    min: 0.0
+    max: 1.5
+    velocity: 0.8
+    acceleration: 2.0
+hardware_qualified: false
+control_profile: lerobot
+lerobot_reference_commit: 22bd7a2f489b367d8df42de803b1e8c4ca63a3f9
+servo_settings:
+  return_delay_time: 0
+  maximum_acceleration: 254
+  acceleration: 254
+  position_p_coefficient: 16
+  position_i_coefficient: 0
+  position_d_coefficient: 32
+  gripper_max_torque_limit: 500
+  gripper_protection_current: 250
+  gripper_overload_torque: 25

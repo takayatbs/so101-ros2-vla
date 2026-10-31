@@ -1,0 +1,4 @@
+string bag_uri
+---
+bool success
+string message

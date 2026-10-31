@@ -1,0 +1,9 @@
+rate_hz: 60.0
+command_timeout_s: 0.25
+state_timeout_s: 0.25
+max_header_age_s: 0.25
+max_control_gap_s: 0.1
+jump_threshold_rad: 0.8
+jump_behavior: clamp
+trajectory_duration_s: 0.02
+min_disk_free_gb: 10.0

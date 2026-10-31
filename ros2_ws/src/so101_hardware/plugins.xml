@@ -1,0 +1,1 @@
+<library path="so101_topic_system"><class name="so101_hardware/TopicSystem" type="so101_hardware::TopicSystem" base_class_type="hardware_interface::SystemInterface"><description>SI topic bridge to project SO101 serial adapter</description></class></library>

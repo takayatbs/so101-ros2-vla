@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+from so101_hardware.drivers import leader_main
+leader_main()

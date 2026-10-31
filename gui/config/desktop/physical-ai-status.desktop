@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=SO-101 Device Status
+Name[ja]=SO-101 機器の状態
+Comment=Show the latest ROS 2 diagnostics for each component
+Comment[ja]=各機器の最新の診断状態を一覧表示します
+Exec=/usr/local/bin/so101-entrypoint ros2 run rqt_runtime_monitor rqt_runtime_monitor
+Icon=utilities-system-monitor
+Terminal=false
+Categories=Development;Science;

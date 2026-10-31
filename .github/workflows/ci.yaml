@@ -1,0 +1,25 @@
+name: SO-101 ROS 2 VLA
+on: [push, pull_request]
+jobs:
+  public-source:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit public files, ignore rules and documentation links
+        run: python3 scripts/audit_public.py
+  ros:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker / colcon build (CPU ROS)
+        run: docker build --build-arg INSTALL_ML=false -t so101-ci .
+      - name: Unit and ROS launch / MCAP tests
+        run: docker run --rm --ipc=host so101-ci python -m pytest tests -q -m 'not ml'
+  ml:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker / ML build (CPU)
+        run: docker build --build-arg TORCH_INDEX=https://download.pytorch.org/whl/cpu -t so101-ci-ml .
+      - name: Dataset conversion / ACT / ROS policy integration
+        run: docker run --rm --ipc=host -e RUN_ML_TESTS=1 so101-ci-ml python -m pytest tests -q

@@ -1,0 +1,15 @@
+# Collection example. Copy to record.local.yaml for your task and hardware.
+runtime:
+  backend: mock
+  config: ../runtime/system.real30hz.640x480.yaml
+  start: true
+dataset:
+  single_task: 物体を箱に入れる
+  operator: operator
+  num_episodes: 10
+  episode_time_s: 30
+  reset_time_s: 15
+warmup_time_s: 10
+session_root: ../../data/collections
+startup_timeout_s: 45
+service_timeout_s: 15

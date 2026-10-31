@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=RViz2 (ROS 2 Jazzy)
+Exec=/usr/local/bin/physical-ai-entrypoint ros2 run rviz2 rviz2
+Icon=applications-science
+Terminal=false
+Categories=Development;Science;

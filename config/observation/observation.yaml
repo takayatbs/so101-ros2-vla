@@ -1,0 +1,21 @@
+cameras: [top, arm]
+state: [joint_position]
+max_age_s: 0.2
+sync_tolerance_s: 0.02
+normalization: so101_saved_statistics
+preprocessing:
+  top:
+    undistort: {enabled: false, calibration: ../calibration/top.yaml}
+    crop: {enabled: false}
+    resize: {width: 640, height: 480, interpolation: bilinear}
+    pad: {top: 0, bottom: 0, left: 0, right: 0}
+  arm:
+    undistort: {enabled: false, calibration: ../calibration/arm.yaml}
+    crop: {enabled: false}
+    resize: {width: 640, height: 480, interpolation: bilinear}
+    pad: {top: 0, bottom: 0, left: 0, right: 0}
+  side:
+    undistort: {enabled: false, calibration: ../calibration/side.yaml}
+    crop: {enabled: false}
+    resize: {width: 640, height: 480, interpolation: bilinear}
+    pad: {top: 0, bottom: 0, left: 0, right: 0}

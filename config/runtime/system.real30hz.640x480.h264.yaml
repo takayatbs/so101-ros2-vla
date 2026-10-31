@@ -1,0 +1,11 @@
+# NVENC profile: same compressed stream for MCAP and Foxglove, RGB branch for inference.
+files:
+  controllers: ../hardware/controllers.yaml
+  robot: ../hardware/robot.yaml
+  camera: ../cameras/camera.640x480.h264.yaml
+  teleop: ../control/teleop.yaml
+  safety: ../control/safety.yaml
+  policy: ../policy/policy.real30hz.yaml
+  dataset: ../dataset/dataset.h264.yaml
+  observation: ../observation/observation.yaml
+  training: ../training/training.yaml

@@ -1,0 +1,27 @@
+{
+  "name": "SO101 ROS 2 VLA / NVIDIA",
+  "dockerComposeFile": [
+    "../../compose.yaml",
+    "../../compose.gpu.yaml"
+  ],
+  "service": "so101-dev",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "dev",
+  "updateRemoteUserUID": false,
+  "overrideCommand": false,
+  "shutdownAction": "none",
+  "initializeCommand": "python3 '${localWorkspaceFolder}/gui/scripts/init.py' --generate-password",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/venv/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-vscode.cpptools",
+        "ms-iot.vscode-ros"
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot name="so101" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Approximate primitives for integration tests, NOT measured CAD/collision geometry. -->
+  <xacro:arg name="robot_config" default="/workspace/config/hardware/robot.yaml"/>
+  <xacro:property name="robot_config" value="$(arg robot_config)"/>
+  <xacro:property name="cfg" value="${xacro.load_yaml(robot_config)}"/>
+  <xacro:macro name="body" params="name">
+    <link name="${name}">
+      <inertial><origin xyz="0 0 0.04"/><mass value="0.15"/><inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/></inertial>
+      <visual><origin xyz="0 0 0.04"/><geometry><box size="0.035 0.035 0.08"/></geometry><material name="orange"><color rgba="0.85 0.45 0.1 1"/></material></visual>
+      <collision><origin xyz="0 0 0.04"/><geometry><box size="0.035 0.035 0.08"/></geometry></collision>
+    </link>
+  </xacro:macro>
+  <xacro:body name="base_link"/>
+  <xacro:body name="shoulder_pan_link"/>
+  <joint name="shoulder_pan" type="revolute"><parent link="base_link"/><child link="shoulder_pan_link"/><origin xyz="0 0 0.05"/><axis xyz="0 0 1"/><limit lower="${cfg['limits']['shoulder_pan']['min']}" upper="${cfg['limits']['shoulder_pan']['max']}" velocity="${cfg['limits']['shoulder_pan']['velocity']}" effort="3"/></joint>
+  <xacro:body name="shoulder_lift_link"/>
+  <joint name="shoulder_lift" type="revolute"><parent link="shoulder_pan_link"/><child link="shoulder_lift_link"/><origin xyz="0 0 0.08"/><axis xyz="0 1 0"/><limit lower="${cfg['limits']['shoulder_lift']['min']}" upper="${cfg['limits']['shoulder_lift']['max']}" velocity="${cfg['limits']['shoulder_lift']['velocity']}" effort="3"/></joint>
+  <xacro:body name="elbow_link"/>
+  <joint name="elbow_flex" type="revolute"><parent link="shoulder_lift_link"/><child link="elbow_link"/><origin xyz="0 0 0.12"/><axis xyz="0 1 0"/><limit lower="${cfg['limits']['elbow_flex']['min']}" upper="${cfg['limits']['elbow_flex']['max']}" velocity="${cfg['limits']['elbow_flex']['velocity']}" effort="3"/></joint>
+  <xacro:body name="wrist_flex_link"/>
+  <joint name="wrist_flex" type="revolute"><parent link="elbow_link"/><child link="wrist_flex_link"/><origin xyz="0 0 0.12"/><axis xyz="0 1 0"/><limit lower="${cfg['limits']['wrist_flex']['min']}" upper="${cfg['limits']['wrist_flex']['max']}" velocity="${cfg['limits']['wrist_flex']['velocity']}" effort="3"/></joint>
+  <xacro:body name="wrist_roll_link"/>
+  <joint name="wrist_roll" type="revolute"><parent link="wrist_flex_link"/><child link="wrist_roll_link"/><origin xyz="0 0 0.06"/><axis xyz="0 0 1"/><limit lower="${cfg['limits']['wrist_roll']['min']}" upper="${cfg['limits']['wrist_roll']['max']}" velocity="${cfg['limits']['wrist_roll']['velocity']}" effort="3"/></joint>
+  <xacro:body name="gripper_link"/>
+  <joint name="gripper" type="revolute"><parent link="wrist_roll_link"/><child link="gripper_link"/><origin xyz="0 0 0.04"/><axis xyz="0 1 0"/><limit lower="${cfg['limits']['gripper']['min']}" upper="${cfg['limits']['gripper']['max']}" velocity="${cfg['limits']['gripper']['velocity']}" effort="3"/></joint>
+  <link name="camera_top_link"/><joint name="camera_top_fixed" type="fixed"><parent link="base_link"/><child link="camera_top_link"/><origin xyz="0.25 0 0.6"/></joint>
+  <link name="camera_side_link"/><joint name="camera_side_fixed" type="fixed"><parent link="base_link"/><child link="camera_side_link"/><origin xyz="0 0.4 0.3"/></joint>
+  <link name="camera_arm_link"/><joint name="camera_arm_fixed" type="fixed"><parent link="wrist_roll_link"/><child link="camera_arm_link"/><origin xyz="0.04 0 0.05"/></joint>
+  <ros2_control name="SO101" type="system"><hardware><plugin>so101_hardware/TopicSystem</plugin><param name="timeout_s">${cfg['follower']['command_timeout_s']}</param></hardware>
+    <joint name="shoulder_pan"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="shoulder_lift"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="elbow_flex"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="wrist_flex"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="wrist_roll"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="gripper"><command_interface name="position"/><state_interface name="position"/></joint>
+  </ros2_control>
+</robot>

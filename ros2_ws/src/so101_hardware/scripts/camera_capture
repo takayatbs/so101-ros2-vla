@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+from so101_hardware.camera import main
+main()

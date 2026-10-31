@@ -1,0 +1,13 @@
+# Match action consumption to the 30 Hz dataset timeline.
+# This is a scheduling target, not a guarantee of measured inference throughput.
+backend: hold
+device: cuda
+model_id: example_act
+model_root: ../../data/models
+inference_rate_hz: 30.0
+task: Pick up the object
+action_chunk:
+  chunk_size: 30
+  n_action_steps: 10
+  scheduler: {method: standard}
+  correction: {method: none}

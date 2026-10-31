@@ -1,0 +1,31 @@
+# Public camera profile; configure actual devices in the matching .local.yaml.
+cameras:
+  top:
+    device: /dev/v4l/by-id/usb-YOUR_TOP_CAMERA-video-index0
+    width: 640
+    height: 480
+    fps: 30.0
+    frame_id: camera_top_link
+    warmup_s: 1.0
+    fourcc: MJPG
+  side:
+    device: /dev/v4l/by-id/usb-YOUR_SIDE_CAMERA-video-index0
+    width: 640
+    height: 480
+    fps: 30.0
+    frame_id: camera_side_link
+    warmup_s: 1.0
+    fourcc: MJPG
+  arm:
+    device: /dev/v4l/by-id/usb-YOUR_ARM_CAMERA-video-index0
+    width: 640
+    height: 480
+    fps: 30.0
+    frame_id: camera_arm_link
+    warmup_s: 1.0
+    fourcc: MJPG
+preview:
+  width: 640
+  height: 480
+  jpeg_quality: 75
+timeout_s: 0.5

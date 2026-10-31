@@ -1,0 +1,5 @@
+services:
+  so101-dev:
+    gpus: all
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,graphics,display

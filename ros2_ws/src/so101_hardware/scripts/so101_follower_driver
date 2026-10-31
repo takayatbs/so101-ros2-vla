@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+from so101_hardware.drivers import follower_main
+follower_main()

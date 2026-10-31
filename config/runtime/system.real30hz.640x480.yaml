@@ -1,0 +1,12 @@
+# 640x480 camera profile for collection and deployment, targeting 30 Hz.
+# Nominal rates do not guarantee measured capture/recording/inference throughput.
+files:
+  controllers: ../hardware/controllers.yaml
+  robot: ../hardware/robot.yaml
+  camera: ../cameras/camera.640x480.yaml
+  teleop: ../control/teleop.yaml
+  safety: ../control/safety.yaml
+  policy: ../policy/policy.real30hz.yaml
+  dataset: ../dataset/dataset.yaml
+  observation: ../observation/observation.yaml
+  training: ../training/training.yaml

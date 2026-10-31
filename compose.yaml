@@ -1,0 +1,71 @@
+name: ${COMPOSE_PROJECT_NAME:-so101-ros2-vla}
+services:
+  so101-dev:
+    image: ${SO101_IMAGE:-so101-ros2-vla:jazzy}
+    build:
+      context: ${SO101_WORKSPACE:-.}
+      args:
+        ROS_IMAGE: ${GUI_ROS_IMAGE:-ros:jazzy-ros-base-noble}
+        DEV_UID: ${DEV_UID:-1000}
+        DEV_GID: ${DEV_GID:-1000}
+        INSTALL_ML: ${INSTALL_ML:-true}
+        TORCH_INDEX: ${TORCH_INDEX:-https://download.pytorch.org/whl/cu128}
+    init: true
+    user: "${DEV_UID:-1000}:${DEV_GID:-1000}"
+    restart: unless-stopped
+    shm_size: 1gb
+    ports:
+      - "127.0.0.1:${GUI_HTTP_PORT:-6080}:6080"
+      - "127.0.0.1:${FOXGLOVE_PORT:-8765}:8765"
+    stop_grace_period: 25s
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    cap_add: [SYS_NICE]
+    group_add:
+      - "${SO101_DIALOUT_GID:-20}"
+      - "${SO101_VIDEO_GID:-44}"
+    volumes:
+      - ${SO101_WORKSPACE:-.}:/workspace
+      - /dev:/dev
+      - gui-home:/home/dev
+    secrets: [vnc_password]
+    device_cgroup_rules:
+      - 'c 166:* rmw'
+      - 'c 188:* rmw'
+      - 'c 81:* rmw'
+    ulimits:
+      rtprio: 99
+      memlock: -1
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-42}
+      ROS_AUTOMATIC_DISCOVERY_RANGE: LOCALHOST
+      RMW_FASTRTPS_PUBLICATION_MODE: ${RMW_FASTRTPS_PUBLICATION_MODE:-ASYNCHRONOUS}
+      SO101_IMAGE: ${SO101_IMAGE:-so101-ros2-vla:jazzy}
+      MUJOCO_GL: egl
+      OMP_NUM_THREADS: ${SO101_CPU_THREADS:-2}
+      OPENBLAS_NUM_THREADS: ${SO101_CPU_THREADS:-2}
+      MKL_NUM_THREADS: ${SO101_CPU_THREADS:-2}
+      GUI_HTTP_PORT: 6080
+      GUI_BIND_ADDRESS: 0.0.0.0
+      SO101_FOXGLOVE_BIND_ADDRESS: 0.0.0.0
+      VNC_GEOMETRY: ${VNC_GEOMETRY:-1600x900}
+      GUI_SOFTWARE_RENDERING: ${GUI_SOFTWARE_RENDERING:-1}
+      TZ: ${GUI_TIMEZONE:-UTC}
+    working_dir: /workspace
+    command: [/usr/local/bin/physical-ai-start-desktop]
+    healthcheck:
+      test: [CMD, /usr/local/bin/physical-ai-healthcheck]
+      interval: 15s
+      timeout: 5s
+      start_period: 45s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+secrets:
+  vnc_password:
+    file: ${SO101_WORKSPACE:-.}/gui/.secrets/vnc_password
+volumes:
+  gui-home:
+    # Persist the desktop home across container recreation.
+    name: ${SO101_HOME_VOLUME:-so101-ros2-vla-home}

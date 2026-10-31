@@ -1,0 +1,15 @@
+<mujoco model="so101_integration_test"><compiler angle="radian"/><option timestep="0.01" gravity="0 0 0"/><default><joint damping="1" armature="0.01"/><geom type="capsule" size="0.018" density="700" contype="0" conaffinity="0"/></default><worldbody><light pos="0 0 2"/>
+<body name="shoulder_pan_link" pos="0 0 0.05"><joint name="shoulder_pan" axis="0 0 1" range="-1.5 1.5"/><geom fromto="0 0 0 0 0 0.08"/>
+<body name="shoulder_lift_link" pos="0 0 0.08"><joint name="shoulder_lift" axis="0 1 0" range="-1.5 1.5"/><geom fromto="0 0 0 0 0 0.08"/>
+<body name="elbow_link" pos="0 0 0.12"><joint name="elbow_flex" axis="0 1 0" range="-1.5 1.5"/><geom fromto="0 0 0 0 0 0.08"/>
+<body name="wrist_flex_link" pos="0 0 0.12"><joint name="wrist_flex" axis="0 1 0" range="-1.5 1.5"/><geom fromto="0 0 0 0 0 0.08"/>
+<body name="wrist_roll_link" pos="0 0 0.06"><joint name="wrist_roll" axis="0 0 1" range="-2.5 2.5"/><geom fromto="0 0 0 0 0 0.08"/>
+<body name="gripper_link" pos="0 0 0.04"><joint name="gripper" axis="0 1 0" range="0.0 2.2662429056664832"/><geom fromto="0 0 0 0 0 0.08"/>
+</body></body></body></body></body></body></worldbody><actuator>
+<position name="shoulder_pan_actuator" joint="shoulder_pan" kp="20" kv="2"/>
+<position name="shoulder_lift_actuator" joint="shoulder_lift" kp="20" kv="2"/>
+<position name="elbow_flex_actuator" joint="elbow_flex" kp="20" kv="2"/>
+<position name="wrist_flex_actuator" joint="wrist_flex" kp="20" kv="2"/>
+<position name="wrist_roll_actuator" joint="wrist_roll" kp="20" kv="2"/>
+<position name="gripper_actuator" joint="gripper" kp="20" kv="2"/>
+</actuator></mujoco>

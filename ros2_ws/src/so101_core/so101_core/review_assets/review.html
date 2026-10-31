@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SO101 · Data Review</title>
+<link rel="stylesheet" href="assets/review.css">
+</head>
+<body>
+<header class="topbar">
+  <div><div class="eyebrow">SO101 / OFFLINE WORKSPACE</div><h1>Data Review <span id="workspaceTitle"></span></h1></div>
+  <div class="header-actions"><button id="exportReview">確認結果を書き出す</button><button id="exportCsv" class="secondary">一覧CSV</button><label class="button secondary">結果を読み込む<input id="importReview" type="file" accept="application/json" hidden></label><button id="helpToggle" class="icon" aria-label="使い方">?</button></div>
+</header>
+<div id="help" class="help" hidden>Space：再生／停止　← →：1行ずつ移動　J / K：前／次の確認候補　B：時刻マーカー。動画は共通の操作で同期します。確認結果はこのブラウザ内に保存し、JSONで持ち出せます。元の記録・採用可否は変更しません。</div>
+<div id="notice" role="status" hidden></div>
+<div id="modelNotice" class="model-notice"></div>
+<details id="skippedNotice" class="help" hidden><summary id="skippedTitle"></summary><ul id="skippedList"></ul></details>
+<section id="datasetStats" class="dataset-stats" aria-label="データ全体の概要"></section>
+<div class="workspace">
+<aside class="sidebar">
+  <div class="sidebar-title"><h2>Episodes</h2><span id="episodeCount"></span></div>
+  <input id="episodeSearch" type="search" placeholder="ID・作業名で検索" aria-label="エピソードを検索">
+  <div class="filter-row"><select id="episodeFilter" aria-label="状態で絞り込み"><option value="all">すべての試行</option><option value="accepted">収集時の採用分</option><option value="issues">同期の除外あり</option><option value="review">レビュー未完了</option><option value="rejected">失敗・対象外</option></select></div>
+  <div id="episodeList" class="episode-list"></div>
+  <div class="sidebar-footer">元データを変更しないレビュー専用画面<br><span id="storageState">確認結果はブラウザ内に保存</span></div>
+</aside>
+<main>
+  <nav class="tabs" aria-label="表示切り替え"><button id="inspectTab" class="active" aria-selected="true">エピソード確認</button><button id="overviewTab" aria-selected="false">全体比較・EE軌跡</button></nav>
+  <section id="inspectView">
+    <div class="section-header"><div><div class="eyebrow" id="episodeOrdinal"></div><h2 id="episodeTitle">読み込み中</h2><div id="episodeStatus" class="muted"></div></div><div id="episodeBadges" class="badges"></div></div>
+    <div class="media-workbench">
+    <div id="videos" class="videos" aria-label="同期カメラ映像"></div>
+      <section class="panel trajectory-panel"><div class="panel-head"><h3>EE trajectory <span class="muted">3D</span></h3><div class="view-buttons" data-scene="episode"><button data-view="iso">斜め</button><button data-view="top">上</button><button data-view="front">正面</button><button data-view="fit">全体</button></div></div>
+        <div class="canvas-wrap"><canvas id="eeCanvas" aria-label="選択エピソードのEE軌跡3D"></canvas><div id="eeUnavailable" class="canvas-message" hidden></div></div>
+        <div class="scene-caption"><span><i class="dot teal"></i>実測関節から推定　<i class="dot orange"></i>目標関節から推定</span><span>ドラッグ：回転 · Shift＋ドラッグ：移動 · ホイール：拡大</span></div>
+        <div id="eeCoordinates" class="coordinate-strip"></div>
+      </section>
+    </div>
+    <div class="analysis-grid">
+      <section class="panel signal-panel"><div class="panel-head"><h3>Signals</h3><div class="signal-controls"><select id="signalKind" aria-label="グラフの種類"><option value="joint">関節位置と目標</option><option value="ee">EE位置 XYZ</option><option value="speed">EE速度</option><option value="sync">同期の時刻差</option><option value="latency">Recorder受信遅延</option></select><select id="joint" aria-label="表示する関節"></select></div></div>
+        <canvas id="signalCanvas" aria-label="時刻に連動する信号グラフ"></canvas><div id="signalLegend" class="legend"></div><p id="signalCaption" class="panel-caption"></p>
+      </section>
+    </div>
+    <div class="details-grid">
+      <section class="panel"><div class="panel-head"><h3>Quality</h3><span class="muted">記録と対応付けの品質</span></div><div id="qualityMetrics" class="quality-grid"></div><div class="table-scroll"><table><thead><tr><th>カメラ</th><th>実FPS</th><th>最大間隔</th><th>画像の古さ P95</th><th>同一画像の再使用</th><th>受信 P95</th></tr></thead><tbody id="cameraStats"></tbody></table></div><p class="panel-caption">同期率は対応表内の割合です。「原記録の対応範囲」で先頭・末尾の欠けも確認してください。作業成功率は表しません。受信遅延と同期の時刻差は別の値です。EE値は指定したモデルに依存します。</p></section>
+      <section class="panel"><div class="panel-head"><h3>Review</h3><span id="reviewState" class="muted"></span></div><div id="decisionButtons" class="segmented"><button data-decision="unreviewed">未確認</button><button data-decision="accepted">確認済み</button><button data-decision="needs_review">要確認</button><button data-decision="rejected">対象外候補</button></div><textarea id="reviewNote" rows="3" placeholder="配置戻しの混入、つかみ損ね、画角、遮蔽などの所見" aria-label="レビュー所見"></textarea><div class="range-tools"><button id="setIn">開始点をここに</button><button id="setOut">終了点をここに</button><button id="clearRange" class="quiet">範囲を戻す</button><label><input id="loopRange" type="checkbox">選択範囲でループ</label></div><p id="rangeText" class="muted"></p><p class="panel-caption">範囲は確認・書き出し用の指定です。元動画の切り出しや学習データの採用変更は行いません。</p><button id="addBookmark">＋ この時刻にマーカー</button><div id="bookmarks" class="bookmark-list"></div></section>
+    </div>
+    <section class="panel issue-panel"><div class="panel-head"><h3>確認候補</h3><div><button id="previousIssue">前へ J</button><button id="nextIssue">次へ K</button></div></div><div id="issues" class="issues"></div><p class="panel-caption">同期条件外・EE速度の大きな区間を確認候補として表示します。自動的な作業失敗判定ではありません。</p></section>
+  </section>
+  <section id="overviewView" hidden>
+    <div class="section-header"><div><div class="eyebrow">DATASET CONSISTENCY</div><h2>全エピソードのEE軌跡</h2><p class="muted">同じ作業・ロボット・校正・EEモデルの記録を比較します。</p></div></div>
+    <div class="overview-controls"><label>比較グループ <select id="cohortGroup"></select></label><label><input id="includeRejected" type="checkbox">収集時の失敗・対象外も表示</label><label><input id="alignStarts" type="checkbox">開始位置を揃えて形状を比較</label><label><input id="showMean" type="checkbox" checked>基準群の平均軌跡を表示</label><select id="cohortSort" aria-label="比較表の並べ方"><option value="consistency">軌跡のずれが大きい順</option><option value="endpoint">終点のずれが大きい順</option><option value="startpoint">始点のずれが大きい順</option><option value="quality">同期条件内の割合が低い順</option><option value="duration">記録時間が長い順</option><option value="original">収集順</option></select></div>
+    <section class="panel"><div class="panel-head"><h3>Workspace trajectories</h3><div class="view-buttons" data-scene="cohort"><button data-view="iso">斜め</button><button data-view="top">上</button><button data-view="front">正面</button><button data-view="fit">全体</button></div></div><div class="canvas-wrap cohort-canvas"><canvas id="cohortCanvas" aria-label="全エピソードのEE軌跡3D比較"></canvas><div id="cohortEmpty" class="canvas-message" hidden>この条件で比較できるEE軌跡がありません。</div></div><div class="scene-caption"><span id="cohortCaption"></span><span>線：各実演　太い白線：基準群平均　丸：現在の進捗</span></div></section>
+    <div id="cohortStats" class="dataset-stats compact"></div>
+    <p class="comparison-note">各実演の開始〜終了を0〜100%の進捗へ揃えて比較します。速度や待ち時間、初期配置が違う実演もずれるため、数値だけで除外しないでください。同期条件外の区間は平均へ補間しません。ずれは同じグループの他の採用・成功試行を基準にしたモデル上の距離です。</p>
+    <section class="panel"><div class="table-scroll"><table id="cohortTable"><thead><tr><th>表示</th><th>Episode</th><th>収集結果</th><th>時間</th><th>同期条件内</th><th>経路長</th><th>軌跡ずれ RMS</th><th>始点のずれ</th><th>終点のずれ</th><th>レビュー</th></tr></thead><tbody id="cohortRows"></tbody></table></div></section>
+  </section>
+</main>
+</div>
+<footer class="transport" aria-label="全カメラ共通の再生操作">
+  <div class="transport-top"><button id="play" class="play" aria-label="全カメラを再生">▶ 再生</button><button id="stepBack" aria-label="1行前">◀│</button><button id="stepForward" aria-label="1行後">│▶</button><span id="timeReadout" class="time-readout">0.000 / 0.000 s</span><select id="speed" aria-label="再生速度"><option value="0.25">0.25倍</option><option value="0.5">0.5倍</option><option value="1" selected>1倍</option><option value="2">2倍</option></select><span id="playbackState" class="muted"></span><span id="frameReadout" class="muted"></span></div>
+  <canvas id="timelineCanvas" aria-label="同期条件と確認範囲のタイムライン"></canvas><input id="slider" type="range" min="0" value="0" step="0.001" max="1" aria-label="共通の再生時刻">
+</footer>
+<script id="workspace" type="application/json">__WORKSPACE__</script>
+<script id="data" type="application/json">__INITIAL__</script>
+<script src="assets/review.js"></script>
+</body>
+</html>

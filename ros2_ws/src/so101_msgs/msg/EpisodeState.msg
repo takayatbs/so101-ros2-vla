@@ -1,0 +1,9 @@
+string episode_id
+string task_id
+string operator_name
+string state
+builtin_interfaces/Time start_time
+builtin_interfaces/Time end_time
+bool success
+string failure_reason
+string bag_uri

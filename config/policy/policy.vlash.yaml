@@ -1,0 +1,15 @@
+backend: hold
+device: cuda
+model_id: vlash-flow-v1
+model_root: ../../data/models
+inference_rate_hz: 30.0
+task: Pick up the object
+action_chunk:
+  chunk_size: 30
+  n_action_steps: 10
+  scheduler:
+    method: vlash
+    max_delay_steps: 3
+    max_inference_s: 0.2
+  correction:
+    method: none

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3"><name>so101_core</name><version>0.1.0</version>
+<description>SO101 Physical AI so101_core</description><maintainer email="dev@example.invalid">SO101 developers</maintainer><license>Apache-2.0</license>
+<buildtool_depend>ament_python</buildtool_depend>
+<exec_depend>python3-numpy</exec_depend>
+<exec_depend>python3-opencv</exec_depend>
+<exec_depend>python3-av</exec_depend>
+<exec_depend>python3-yaml</exec_depend>
+<exec_depend>python3-serial</exec_depend>
+<exec_depend>rclpy</exec_depend>
+<exec_depend>diagnostic_msgs</exec_depend>
+<exec_depend>trajectory_msgs</exec_depend>
+<exec_depend>sensor_msgs</exec_depend>
+<export><build_type>ament_python</build_type></export></package>

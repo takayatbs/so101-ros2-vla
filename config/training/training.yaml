@@ -1,0 +1,17 @@
+# Project ACT variant. No downloaded model or external training CLI is used.
+dim_model: 256
+n_heads: 8
+dim_feedforward: 1024
+n_encoder_layers: 2
+n_decoder_layers: 2
+n_vae_encoder_layers: 2
+latent_dim: 32
+dropout: 0.1
+kl_weight: 10.0
+learning_rate: 0.0001
+weight_decay: 0.0001
+grad_clip: 1.0
+validation_fraction: 0.2
+eval_every: 1000
+save_every: 1000
+num_workers: 0

@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(so101_description)
+find_package(ament_cmake REQUIRED)
+install(DIRECTORY urdf mujoco DESTINATION share/${PROJECT_NAME})
+install(FILES LICENSE DESTINATION share/${PROJECT_NAME})
+ament_package()

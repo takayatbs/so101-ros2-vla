@@ -1,0 +1,206 @@
+{
+  "configById": {
+    "Image!top": {
+      "foxglovePanelTitle": "上方カメラ / top",
+      "imageMode": {
+        "imageTopic": "/camera/top/preview/compressed"
+      },
+      "scene": {},
+      "transforms": {},
+      "topics": {},
+      "layers": {}
+    },
+    "Image!side": {
+      "foxglovePanelTitle": "側面カメラ / side",
+      "imageMode": {
+        "imageTopic": "/camera/side/preview/compressed"
+      },
+      "scene": {},
+      "transforms": {},
+      "topics": {},
+      "layers": {}
+    },
+    "Image!arm": {
+      "foxglovePanelTitle": "アームカメラ / arm",
+      "imageMode": {
+        "imageTopic": "/camera/arm/preview/compressed"
+      },
+      "scene": {},
+      "transforms": {},
+      "topics": {},
+      "layers": {}
+    },
+    "DiagnosticSummary!devices": {
+      "foxglovePanelTitle": "機器の状態 / diagnostics",
+      "topicToRender": "/diagnostics",
+      "minLevel": 0,
+      "pinnedIds": [],
+      "hardwareIdFilter": "",
+      "sortByLevel": true,
+      "secondsUntilStale": 5
+    },
+    "DiagnosticStatusPanel!top": {
+      "foxglovePanelTitle": "top の撮影状態",
+      "topicToRender": "/diagnostics",
+      "selectedHardwareId": "so101",
+      "selectedName": "camera_top",
+      "numericPrecision": 3,
+      "secondsUntilStale": 5,
+      "splitFraction": 0.5
+    },
+    "DiagnosticStatusPanel!side": {
+      "foxglovePanelTitle": "side の撮影状態",
+      "topicToRender": "/diagnostics",
+      "selectedHardwareId": "so101",
+      "selectedName": "camera_side",
+      "numericPrecision": 3,
+      "secondsUntilStale": 5,
+      "splitFraction": 0.5
+    },
+    "DiagnosticStatusPanel!arm": {
+      "foxglovePanelTitle": "arm の撮影状態",
+      "topicToRender": "/diagnostics",
+      "selectedHardwareId": "so101",
+      "selectedName": "camera_arm",
+      "numericPrecision": 3,
+      "secondsUntilStale": 5,
+      "splitFraction": 0.5
+    },
+    "DiagnosticStatusPanel!gripper": {
+      "foxglovePanelTitle": "Follower・グリッパーの状態",
+      "topicToRender": "/diagnostics",
+      "selectedHardwareId": "so101",
+      "selectedName": "so101_follower_driver",
+      "numericPrecision": 3,
+      "secondsUntilStale": 5,
+      "splitFraction": 0.5
+    },
+    "Tab!camera-status": {
+      "activeTabIdx": 3,
+      "tabs": [
+        {
+          "title": "top の状態",
+          "layout": "DiagnosticStatusPanel!top"
+        },
+        {
+          "title": "side の状態",
+          "layout": "DiagnosticStatusPanel!side"
+        },
+        {
+          "title": "arm の状態",
+          "layout": "DiagnosticStatusPanel!arm"
+        },
+        {
+          "title": "グリッパー",
+          "layout": "DiagnosticStatusPanel!gripper"
+        }
+      ]
+    },
+    "RawMessages!mode": {
+      "foxglovePanelTitle": "現在のモード",
+      "topicPath": "/control_mode",
+      "diffEnabled": false,
+      "defaultExpanded": true,
+      "fontSize": 16
+    },
+    "RawMessages!leader": {
+      "foxglovePanelTitle": "Leader 関節（rad）",
+      "topicPath": "/leader/joint_states",
+      "diffEnabled": false,
+      "defaultExpanded": true,
+      "fontSize": 12
+    },
+    "RawMessages!follower": {
+      "foxglovePanelTitle": "Follower 関節（rad）・時刻も確認",
+      "topicPath": "/follower/joint_states",
+      "diffEnabled": false,
+      "defaultExpanded": true,
+      "fontSize": 12
+    },
+    "Tab!joints": {
+      "activeTabIdx": 0,
+      "tabs": [
+        {
+          "title": "Leader",
+          "layout": "RawMessages!leader"
+        },
+        {
+          "title": "Follower",
+          "layout": "RawMessages!follower"
+        }
+      ]
+    },
+    "DiagnosticStatusPanel!collection": {
+      "foxglovePanelTitle": "データ収集の進行状況",
+      "topicToRender": "/diagnostics",
+      "selectedHardwareId": "so101",
+      "selectedName": "collection_session",
+      "numericPrecision": 1,
+      "secondsUntilStale": 5,
+      "splitFraction": 0.5
+    },
+    "RawMessages!episode": {
+      "foxglovePanelTitle": "現在・直前のEpisode",
+      "topicPath": "/episode/state",
+      "diffEnabled": false,
+      "defaultExpanded": true,
+      "fontSize": 12
+    },
+    "Tab!collection": {
+      "activeTabIdx": 0,
+      "tabs": [
+        {
+          "title": "収集の進行状況",
+          "layout": "DiagnosticStatusPanel!collection"
+        },
+        {
+          "title": "Episode",
+          "layout": "RawMessages!episode"
+        },
+        {
+          "title": "操作モード",
+          "layout": "RawMessages!mode"
+        },
+        {
+          "title": "Leader",
+          "layout": "RawMessages!leader"
+        },
+        {
+          "title": "Follower",
+          "layout": "RawMessages!follower"
+        }
+      ]
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": {
+    "speed": 1
+  },
+  "layout": {
+    "direction": "column",
+    "splitPercentage": 44,
+    "first": {
+      "direction": "row",
+      "splitPercentage": 33.3333,
+      "first": "Image!top",
+      "second": {
+        "direction": "row",
+        "splitPercentage": 50,
+        "first": "Image!side",
+        "second": "Image!arm"
+      }
+    },
+    "second": {
+      "direction": "row",
+      "splitPercentage": 40,
+      "first": "DiagnosticSummary!devices",
+      "second": {
+        "direction": "row",
+        "splitPercentage": 55,
+        "first": "Tab!camera-status",
+        "second": "Tab!collection"
+      }
+    }
+  }
+}

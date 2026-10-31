@@ -1,0 +1,676 @@
+{
+  "reviewed_at": "2026-10-31",
+  "scope": "Supplementary upstream texts for exact installed versions whose distribution omitted a license file; not corresponding source.",
+  "packages": [
+    {
+      "ecosystem": "python",
+      "name": "PyOpenGL",
+      "version": "3.1.10",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/d37ec6e00a4f88bf.txt",
+          "sha256": "d37ec6e00a4f88bf80ec0b7b3b9dbea88534c1c66c2f529dc64c7c02e07a6a1b",
+          "source_url": "https://files.pythonhosted.org/packages/6f/16/912b7225d56284859cd9a672827f18be43f8012f8b7b932bc4bd959a298e/pyopengl-3.1.10.tar.gz",
+          "archive_sha256": "c4a02d6866b54eb119c8e9b3fb04fa835a95ab802dd96607ab4cdb0012df8335",
+          "member": "pyopengl-3.1.10/license.txt"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-argcomplete",
+      "version": "0.3.3",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-argcomplete/0.3.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-bash",
+      "version": "0.5.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-bash/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-cd",
+      "version": "0.2.1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-cd/0.2.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-cmake",
+      "version": "0.2.30",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-cmake/0.2.30/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-common-extensions",
+      "version": "0.3.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-common-extensions/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-core",
+      "version": "0.21.3",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-core/0.21.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-defaults",
+      "version": "0.2.9",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-defaults/0.2.9/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-devtools",
+      "version": "0.3.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-devtools/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-library-path",
+      "version": "0.2.1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-library-path/0.2.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-metadata",
+      "version": "0.3.1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-metadata/0.3.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-mixin",
+      "version": "0.3.2",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-mixin/0.3.2/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-notification",
+      "version": "0.3.3",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-notification/0.3.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-output",
+      "version": "0.2.15",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-output/0.2.15/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-package-information",
+      "version": "0.4.1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-package-information/0.4.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-package-selection",
+      "version": "0.2.10",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-package-selection/0.2.10/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-parallel-executor",
+      "version": "0.3.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-parallel-executor/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-pkg-config",
+      "version": "0.1.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-pkg-config/0.1.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-powershell",
+      "version": "0.5.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-powershell/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-python-setup-py",
+      "version": "0.2.9",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-python-setup-py/0.2.9/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-recursive-crawl",
+      "version": "0.2.3",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-recursive-crawl/0.2.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-ros",
+      "version": "0.5.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-ros/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-test-result",
+      "version": "0.3.8",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-test-result/0.3.8/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colcon-zsh",
+      "version": "0.5.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-zsh/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "pyserial",
+      "version": "3.5",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/f91cb9813de6a5b1.txt",
+          "sha256": "f91cb9813de6a5b142b8f7f2dede630b5134160aedaeaf55f4d6a7e2593ca3f3",
+          "source_url": "https://raw.githubusercontent.com/pyserial/pyserial/v3.5/LICENSE.txt"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "rospkg",
+      "version": "1.6.3",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/50a18a583200bf3a.txt",
+          "sha256": "50a18a583200bf3a253260b1db4c95a2fe95c8d243bae8581bda9aa5867497e7",
+          "source_url": "https://files.pythonhosted.org/packages/b0/24/c06f0057d401faaaafae5e55b813bba854e2d9ef742bad46090fecc84135/rospkg-1.6.3.tar.gz",
+          "archive_sha256": "023bf5a19ce33ed50e3711af92769233e62b1b1b4671d2bb7bfc5e654533f797",
+          "member": "rospkg-1.6.3/src/rospkg/__init__.py (initial copyright/license comment block)"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "rospkg-modules",
+      "version": "1.6.3",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/50a18a583200bf3a.txt",
+          "sha256": "50a18a583200bf3a253260b1db4c95a2fe95c8d243bae8581bda9aa5867497e7",
+          "source_url": "https://files.pythonhosted.org/packages/b0/24/c06f0057d401faaaafae5e55b813bba854e2d9ef742bad46090fecc84135/rospkg-1.6.3.tar.gz",
+          "archive_sha256": "023bf5a19ce33ed50e3711af92769233e62b1b1b4671d2bb7bfc5e654533f797",
+          "member": "rospkg-1.6.3/src/rospkg/__init__.py (initial copyright/license comment block)"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "tokenizers",
+      "version": "0.22.2",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/c71d239df91726fc.txt",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "source_url": "https://raw.githubusercontent.com/huggingface/tokenizers/v0.22.2/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "vcstool",
+      "version": "0.3.0",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/03ed391ed35a54a2.txt",
+          "sha256": "03ed391ed35a54a27f3afb7f23a3962cf827ea351249343e36ca0a8d02ac3c0d",
+          "source_url": "https://raw.githubusercontent.com/dirk-thomas/vcstool/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-argcomplete",
+      "version": "0.3.3+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-argcomplete/0.3.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-bash",
+      "version": "0.5.0-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-bash/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-cd",
+      "version": "0.2.1-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-cd/0.2.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-cmake",
+      "version": "0.2.30+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-cmake/0.2.30/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-common-extensions",
+      "version": "0.3.0-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-common-extensions/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-core",
+      "version": "0.21.3+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-core/0.21.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-defaults",
+      "version": "0.2.9+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-defaults/0.2.9/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-devtools",
+      "version": "0.3.0-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-devtools/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-library-path",
+      "version": "0.2.1-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-library-path/0.2.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-metadata",
+      "version": "0.3.1+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-metadata/0.3.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-mixin",
+      "version": "0.3.2+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-mixin/0.3.2/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-notification",
+      "version": "0.3.3+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-notification/0.3.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-output",
+      "version": "0.2.15+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-output/0.2.15/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-package-information",
+      "version": "0.4.1+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-package-information/0.4.1/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-package-selection",
+      "version": "0.2.10-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-package-selection/0.2.10/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-parallel-executor",
+      "version": "0.3.0-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-parallel-executor/0.3.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-pkg-config",
+      "version": "0.1.0-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-pkg-config/0.1.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-powershell",
+      "version": "0.5.0+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-powershell/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-python-setup-py",
+      "version": "0.2.9-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-python-setup-py/0.2.9/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-recursive-crawl",
+      "version": "0.2.3-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-recursive-crawl/0.2.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-ros",
+      "version": "0.5.0+upstream-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-ros/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-test-result",
+      "version": "0.3.8-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-test-result/0.3.8/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-colcon-zsh",
+      "version": "0.5.0-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/cfc7749b96f63bd3.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/colcon/colcon-zsh/0.5.0/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-rospkg",
+      "version": "1.6.3-100",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/50a18a583200bf3a.txt",
+          "sha256": "50a18a583200bf3a253260b1db4c95a2fe95c8d243bae8581bda9aa5867497e7",
+          "source_url": "https://files.pythonhosted.org/packages/b0/24/c06f0057d401faaaafae5e55b813bba854e2d9ef742bad46090fecc84135/rospkg-1.6.3.tar.gz",
+          "archive_sha256": "023bf5a19ce33ed50e3711af92769233e62b1b1b4671d2bb7bfc5e654533f797",
+          "member": "rospkg-1.6.3/src/rospkg/__init__.py (initial copyright/license comment block)"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-rospkg-modules",
+      "version": "1.6.3-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/50a18a583200bf3a.txt",
+          "sha256": "50a18a583200bf3a253260b1db4c95a2fe95c8d243bae8581bda9aa5867497e7",
+          "source_url": "https://files.pythonhosted.org/packages/b0/24/c06f0057d401faaaafae5e55b813bba854e2d9ef742bad46090fecc84135/rospkg-1.6.3.tar.gz",
+          "archive_sha256": "023bf5a19ce33ed50e3711af92769233e62b1b1b4671d2bb7bfc5e654533f797",
+          "member": "rospkg-1.6.3/src/rospkg/__init__.py (initial copyright/license comment block)"
+        }
+      ]
+    },
+    {
+      "ecosystem": "debian",
+      "name": "python3-vcstool",
+      "version": "0.3.0-1",
+      "texts": [
+        {
+          "path": "LICENSES/runtime/03ed391ed35a54a2.txt",
+          "sha256": "03ed391ed35a54a27f3afb7f23a3962cf827ea351249343e36ca0a8d02ac3c0d",
+          "source_url": "https://raw.githubusercontent.com/dirk-thomas/vcstool/0.3.0/LICENSE"
+        }
+      ]
+    }
+  ]
+}

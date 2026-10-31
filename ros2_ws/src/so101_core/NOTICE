@@ -1,0 +1,41 @@
+SO-101 ROS 2 VLA
+Copyright 2026 SO-101 ROS 2 VLA contributors
+
+The original code, documentation and configuration in this project are
+licensed under the Apache License, Version 2.0. See LICENSE.
+Third-party materials retain their own licenses and copyright notices.
+
+LeRobot integration and compatibility references
+  Copyright 2024 The Hugging Face team. All rights reserved.
+  Copyright 2024 The HuggingFace Inc. team. All rights reserved.
+  Copyright 2026 The HuggingFace Inc. team. All rights reserved.
+  Copyright 2024 Columbia Artificial Intelligence, Robotics Lab,
+    and The HuggingFace Inc. team. All rights reserved.
+  Copyright 2025 HuggingFace Inc. team. All rights reserved.
+  Copyright 2025 Physical Intelligence and The HuggingFace Inc. team.
+    All rights reserved.
+  Copyright 2024 NVIDIA Corporation and The HuggingFace Inc. team.
+    All rights reserved.
+  Copyright 2025 NVIDIA Corporation and The HuggingFace Inc. team.
+    All rights reserved.
+  Copyright 2025 The HuggingFace Inc. team and 2toINF (https://github.com/2toINF)
+  Copyright 2025 2toINF (https://github.com/2toINF)
+  Upstream: https://github.com/huggingface/lerobot
+  Reference revision: 22bd7a2f489b367d8df42de803b1e8c4ca63a3f9
+  License: Apache-2.0, with upstream third-party notices retained in
+    LICENSES/LeRobot-LICENSE.txt.
+  The modified integration files identify their upstream references and
+    the project changes in their file headers. They are not unmodified
+    upstream implementations.
+
+FTServo protocol reference
+  Copyright (c) 2024 ftservo
+  Upstream: https://github.com/ftservo/FTServo_Python
+  License: MIT; see LICENSES/FTServo-LICENSE.txt.
+  The project implements its own serial transport and does not bundle
+    the FTServo SDK. This acknowledgement records the protocol reference.
+
+See the source repository's THIRD_PARTY_NOTICES.md for dependency and
+model-license scope.
+Downloaded model weights, datasets, system packages and GPU components
+are not relicensed by this NOTICE or by the project's Apache-2.0 license.

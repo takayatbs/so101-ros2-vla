@@ -1,0 +1,11 @@
+# Profile based on the initial simultaneous USB camera measurement (~20 FPS).
+files:
+  controllers: ../hardware/controllers.yaml
+  robot: ../hardware/robot.yaml
+  camera: ../cameras/camera.real20hz.yaml
+  teleop: ../control/teleop.yaml
+  safety: ../control/safety.yaml
+  policy: ../policy/policy.yaml
+  dataset: ../dataset/dataset.real20hz.yaml
+  observation: ../observation/observation.real20hz.yaml
+  training: ../training/training.yaml

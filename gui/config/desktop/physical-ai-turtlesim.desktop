@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Turtlesim (ROS 2 Jazzy)
+Exec=/usr/local/bin/physical-ai-entrypoint ros2 run turtlesim turtlesim_node
+Icon=applications-science
+Terminal=false
+Categories=Development;Science;

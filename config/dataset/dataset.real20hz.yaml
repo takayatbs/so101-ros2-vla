@@ -1,0 +1,46 @@
+# Dataset v2: MP4 + timestamp-indexed NPZ; recorded H.264 is remuxed without re-encoding.
+fps: 20
+sync_tolerance_s: 0.03
+action_tolerance_s: 0.05
+max_memory_gb: 8.0
+state_topic: /follower/joint_states
+action_topic: /follower/applied_action
+camera_topics:
+  top: /camera/top/image_raw
+  arm: /camera/arm/image_raw
+  side: /camera/side/image_raw
+bag_root: ../../data/bags
+dataset_root: ../../data/datasets
+topics:
+- /leader/joint_states
+- /follower/joint_states
+- /hardware/follower/state
+- /hardware/follower/command
+- /follower/applied_action
+- /camera/top/image_raw
+- /camera/side/image_raw
+- /camera/arm/image_raw
+- /teleop/action
+- /policy/action
+- /moveit/action
+- /selected_action
+- /safe_action
+- /controller_input
+- /hardware/motor_enable
+- /control_mode
+- /diagnostics
+- /episode/state
+- /tf
+- /tf_static
+measurement_state_topic: /hardware/follower/state
+synchronization:
+  image_selection: previous
+  warning_s: 0.02
+  reject_s: 0.05
+  camera_skew_s: 0.05
+  action_max_age_s: 0.05
+  action_offset_s: 0.0
+  hardware_synchronized: false
+input_topics:
+  leader: /leader/joint_states
+  teleop: /teleop/action

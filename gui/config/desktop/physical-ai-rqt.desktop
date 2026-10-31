@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=rqt (ROS 2 Jazzy)
+Exec=/usr/local/bin/physical-ai-entrypoint ros2 run rqt_gui rqt_gui
+Icon=applications-development
+Terminal=false
+Categories=Development;Science;

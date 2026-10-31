@@ -1,0 +1,7 @@
+image_width: 1920
+image_height: 1080
+# Replace using a measured camera calibration; this is only the file schema.
+camera_matrix:
+  data: [1000, 0, 960, 0, 1000, 540, 0, 0, 1]
+distortion_coefficients:
+  data: [0, 0, 0, 0, 0]

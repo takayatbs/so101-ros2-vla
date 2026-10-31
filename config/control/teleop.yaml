@@ -1,0 +1,28 @@
+# Example mapping; calibration writes measured values to teleop.local.yaml.
+rate_hz: 60.0
+timeout_s: 0.25
+joint_mapping:
+  leader_shoulder_pan:
+    follower: shoulder_pan
+    scale: 1.0
+    offset: 0.0
+  leader_shoulder_lift:
+    follower: shoulder_lift
+    scale: 1.0
+    offset: 0.0
+  leader_elbow_flex:
+    follower: elbow_flex
+    scale: 1.0
+    offset: 0.0
+  leader_wrist_flex:
+    follower: wrist_flex
+    scale: 1.0
+    offset: 0.0
+  leader_wrist_roll:
+    follower: wrist_roll
+    scale: 1.0
+    offset: 0.0
+  leader_gripper:
+    follower: gripper
+    scale: 1.0
+    offset: 0.0
