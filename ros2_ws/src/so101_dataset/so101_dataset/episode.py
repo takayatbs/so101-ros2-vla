@@ -16,6 +16,7 @@ from so101_core.timing import stamp_ns
 class EpisodeNode(SystemNode):
     def __init__(self):
         super().__init__("episode_manager")
+        self.declare_parameter('allow_idle_recording', False)
         self.active, self.pending = None, False
         self.recorder_error = None
         self.calibration_sha256 = {}
@@ -38,7 +39,10 @@ class EpisodeNode(SystemNode):
         if self.active or self.pending:
             response.message = "An episode is already active or starting"
             return response
-        if self.mode not in ("TELEOP", "AUTONOMOUS", "MOVEIT"):
+        allowed = ("TELEOP", "AUTONOMOUS", "MOVEIT")
+        if self.get_parameter('allow_idle_recording').value:
+            allowed += ('IDLE',)
+        if self.mode not in allowed:
             response.message = "Select an active control mode before recording"
             return response
         if not request.task_id.strip() or not request.operator_name.strip():

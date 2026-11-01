@@ -8,6 +8,7 @@ from launch.event_handlers import OnProcessExit
 from launch.events import Shutdown
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 from so101_core.config import load_system
 from so101_core.lerobot_compat import control_profile
 
@@ -15,6 +16,10 @@ from so101_core.lerobot_compat import control_profile
 def build(context):
     config_path = LaunchConfiguration("config").perform(context)
     backend = LaunchConfiguration("backend").perform(context)
+    asynchronous = LaunchConfiguration('asynchronous_inference').perform(context).lower()
+    benchmark_models = LaunchConfiguration('benchmark_models').perform(context)
+    if asynchronous not in ('true', 'false'):
+        raise ValueError('asynchronous_inference must be true or false')
     if backend not in ("mock", "mujoco", "real"):
         raise ValueError("backend must be mock, mujoco or real")
     config = load_system(config_path)
@@ -41,11 +46,14 @@ def build(context):
              Node(package="so101_teleop", executable="so101_teleop", parameters=parameters, output="screen"),
              safety,
              Node(package="so101_dataset", executable="data_recorder", parameters=parameters, output="screen"),
-             Node(package="so101_dataset", executable="episode_manager", parameters=parameters, output="screen"),
-             Node(package="so101_policy", executable="policy_node", parameters=[*parameters, {
+             Node(package="so101_dataset", executable="episode_manager", parameters=[*parameters, {
+                  'allow_idle_recording': benchmark_models != '[]'}], output="screen"),
+             Node(package="so101_policy", executable="benchmark_policy_node" if benchmark_models != '[]' else "policy_node", parameters=[*parameters, {
+                  'benchmark_models': ParameterValue(benchmark_models, value_type=str),
                   "policy_backend": LaunchConfiguration("policy_backend").perform(context),
                   "model_id": LaunchConfiguration("model_id").perform(context),
                   "action_smoothing": LaunchConfiguration('action_smoothing').perform(context),
+                  "asynchronous_inference": asynchronous == 'true',
                   "correction_checkpoint": LaunchConfiguration('correction_checkpoint').perform(context)}],
                   prefix=LaunchConfiguration('model_python').perform(context), output="screen"),
              Node(package="so101_bringup", executable="system_diagnostics", parameters=parameters)]
@@ -58,7 +66,8 @@ def build(context):
                                        "port": int(os.environ.get("SO101_FOXGLOVE_PORT", "8765")),
                                        "topic_whitelist": ["/camera/.*/preview/compressed", "/camera/.*/video", "/.*joint_states",
                                                            "/diagnostics", "/tf.*", "/control_mode", "/episode/state",
-                                                           "/policy/action", "/safe_action"],
+                                                           "/policy/action", "/safe_action", "/policy/condition",
+                                                           "/benchmark/state", "/benchmark/events"],
                                        "service_whitelist": ["/set_control_mode", "/start_episode", "/stop_episode"]}]))
     # A critical process exit tears down the runtime, allowing driver finally
     # blocks and its independent command watchdog to stop torque.
@@ -77,6 +86,8 @@ def generate_launch_description():
         DeclareLaunchArgument('correction_checkpoint',default_value=''),
         DeclareLaunchArgument('model_python',default_value=''),
         DeclareLaunchArgument('action_smoothing', default_value='none'),
+        DeclareLaunchArgument('asynchronous_inference', default_value='false'),
+        DeclareLaunchArgument('benchmark_models', default_value='[]'),
         DeclareLaunchArgument("foxglove", default_value="true"),
         OpaqueFunction(function=build),
     ])

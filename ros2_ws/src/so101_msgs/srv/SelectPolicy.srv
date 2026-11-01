@@ -1,0 +1,6 @@
+string model_id
+string smoothing
+---
+bool success
+string message
+uint64 generation

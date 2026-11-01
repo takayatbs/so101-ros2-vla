@@ -21,6 +21,7 @@
 | 記録から学習データを作る | [Datasetを作る](guide/dataset.ja.md) |
 | 学習済みモデルで自律動作する | [モデル起動・準備確認・開始・停止](guide/inference.ja.md) |
 | 新しいモデルを学習する | [手法を選ぶ](methods/index.ja.md) → ACT／RTC／Training-time RTC／VLASH／A2C2 |
+| 通常学習とVLASH・平滑化の効果を比較する | [対話ベンチマーク・4条件の比較と集計](four_condition_comparison.ja.md) |
 | エラーを調べる | [症状から調べる](troubleshooting.ja.md) |
 
 ## 作業中に必要になったときの専用手順

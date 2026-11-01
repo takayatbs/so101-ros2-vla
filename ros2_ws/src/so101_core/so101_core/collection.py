@@ -127,8 +127,10 @@ class CollectionJournal:
 
 class TerminalKeys:
     """Read only the focused terminal; no global keyboard hooks or X dependency."""
-    def __init__(self, stream=None):
+    def __init__(self, stream=None, bindings=None, arrows=None):
         self.stream = stream or sys.stdin
+        self.bindings = bindings or {}
+        self.arrows = arrows or {b'C': 'save', b'D': 'redo'}
         self.fd = None
         self.previous = None
         self.pending = b''
@@ -167,18 +169,24 @@ class TerminalKeys:
                 if self.pending[1:2] in (b'[', b'O'):
                     final = self.pending[2:3]
                     self.pending = self.pending[3:]
-                    key = {b'C': 'save', b'D': 'redo'}.get(final)
+                    key = self.arrows.get(final)
                     if key:
                         return key
                     continue
                 self.pending = self.pending[1:]
                 return 'quit'
             byte, self.pending = self.pending[:1], self.pending[1:]
-            key = {b'\r': 'save', b'\n': 'save', b's': 'save', b'n': 'save',
+            key = self.bindings.get(byte.lower()) or {b'\r': 'save', b'\n': 'save', b's': 'save', b'n': 'save',
                    b'r': 'redo', b'f': 'fail', b'q': 'quit', b'\x03': 'quit'}.get(byte.lower())
             if key:
                 return key
         return None
+
+    def flush(self):
+        self.pending = b''
+        self.escape_at = None
+        if self.fd is not None:
+            termios.tcflush(self.fd, termios.TCIFLUSH)
 
 
 class CollectionRunner:

@@ -33,7 +33,7 @@ PROJECT = Path(__file__).resolve().parents[4]
 
 
 def sources(path, accepted_only=False):
-    """Accept an episode, its raw MCAP, or a collection directory/session.json."""
+    """Accept an episode, its raw MCAP, or a collection/benchmark session."""
     path = Path(path).expanduser().resolve()
     if path.suffix == '.mcap':
         if not path.is_file():
@@ -44,6 +44,16 @@ def sources(path, accepted_only=False):
     session = path/'session.json' if path.is_dir() else path
     if session.is_file() and session.name == 'session.json':
         data = json.loads(session.read_text())
+        if data.get('format') == 'so101_interactive_benchmark_v1':
+            if data.get('status') in ('starting', 'running'):
+                raise ValueError('Finish benchmark before generating a review')
+            if accepted_only:
+                raise ValueError('Benchmark reviews include all outcomes; omit --accepted-only')
+            paths = [a['recording'] for a in data['trials'] if a.get('recording')]
+            folders = list(dict.fromkeys(Path(p).resolve() for p in paths))
+            if not folders:
+                raise ValueError('No recordings in this benchmark')
+            return folders, data.get('runtime_config'), session.parent.name
         if data.get('format') != 'so101_collection_v1':
             raise ValueError('Unsupported collection format')
         if data.get('status') in ('starting', 'running', 'recording'):
@@ -307,6 +317,9 @@ def _load_recording(entry, folder, config):
     if not rows:
         raise ValueError('No common timeline for video/state/action: '+str(source))
     data = review_data(folder, metadata, rows, videos, config['robot']['joints'])
+    if (source/'benchmark.json').is_file():
+        data['benchmark'] = json.loads((source/'benchmark.json').read_text())
+        (folder/'benchmark.json').write_text(json.dumps(data['benchmark'], ensure_ascii=False, indent=2))
     return data, metadata, timing_report(source)
 
 

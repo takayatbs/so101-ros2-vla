@@ -46,18 +46,21 @@ class AsyncChunkScheduler:
         return result,self.clock()-began,self.clock()
 
     def _submit(self, observation, step, now):
-        # Reserve the supported latency budget, not a rolling estimate of
-        # recent fast jobs. An underestimated job cannot simply be discarded
-        # and retried: the old chunk has already spent that inference time.
+        # Reserve the largest supported window that the current plan covers.
+        # Do not estimate this from recent fast jobs: a missed reservation
+        # still stops rather than discarding a job and repeating stale goals.
         delay = self.max_delay
         previous,offset = None,0
         obs = dict(observation)
         if self.chunk is not None:
             previous = self.chunk[max(0,step-self.start):].copy()
-            # Exactly `delay` old goals cover [step, step + delay). The new
-            # chunk takes over at step + delay, so equality is sufficient.
-            if not len(previous) or len(previous) < delay:
+            if not len(previous):
                 raise ValueError('No committed trajectory left to cover inference delay')
+            # Request-aligned chunks (standard/RTC) have already consumed their
+            # latency prefix at handoff. One late control tick can leave 14
+            # goals for a configured maximum of 15. Use those 14; never invent
+            # a fifteenth goal, and reject inference that exceeds this window.
+            delay = min(delay, len(previous))
             if self.method == 'vlash':
                 # Absolute joint-position actions: last committed goal estimates
                 # the execution-time state. Never read a future measured state.
@@ -87,7 +90,8 @@ class AsyncChunkScheduler:
                     raise ValueError('Inference exceeded configured maximum latency')
                 elif job['has_previous'] and elapsed > job['delay']:
                     self.missed += 1
-                    raise ValueError('Inference latency exceeds the trained delay range')
+                    raise ValueError('Inference latency exceeds the trained delay range / available trajectory window: '
+                                     f'{elapsed} > {job["delay"]} steps (configured max {self.max_delay})')
                 elif step >= job['request_step']+(job['delay'] if job['has_previous'] else elapsed):
                     chunk = np.asarray(chunk)
                     expected = (self.policy.config['chunk_size'],len(self.policy.config['joint_names']))

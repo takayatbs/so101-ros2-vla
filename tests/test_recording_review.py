@@ -71,6 +71,26 @@ def test_source_selection_includes_failed_attempts_and_mcap(tmp_path):
         recording_review.sources(session)
 
 
+def test_benchmark_sources_preserve_failures_and_aborts(tmp_path):
+    folder = episode(tmp_path)
+    session = tmp_path/'session.json'
+    data = {'format': 'so101_interactive_benchmark_v1', 'status': 'complete',
+            'runtime_config': 'recorded.yaml', 'trials': [
+                {'outcome': 'success', 'recording': str(folder)},
+                {'outcome': 'failure', 'recording': str(tmp_path/'failed')},
+                {'outcome': 'aborted', 'recording': str(tmp_path/'aborted')}]}
+    session.write_text(json.dumps(data))
+    folders, hint, name = recording_review.sources(session)
+    assert folders == [folder, tmp_path/'failed', tmp_path/'aborted']
+    assert hint == 'recorded.yaml'
+    with pytest.raises(ValueError, match='all outcomes'):
+        recording_review.sources(session, True)
+    data['status'] = 'running'
+    session.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match='Finish benchmark'):
+        recording_review.sources(session)
+
+
 def test_generate_reviews_all_invalid_rows_without_training_dataset(monkeypatch, tmp_path):
     source = episode(tmp_path)
     config = {'robot': {'joints': ['gripper']}, 'camera': {'cameras': {'top': {}}},

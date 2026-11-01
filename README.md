@@ -38,6 +38,7 @@ SO-101を人が操作して作業を記録し、モデルを学習させ、ロ�
 | 記録したデータを学習用に変換する | [Datasetを作る](docs/guide/dataset.ja.md) |
 | ACT・RTC・Training-time RTC・VLASH・A2C2を学習・実行する | [手法を選ぶ](docs/methods/index.ja.md) |
 | SmolVLA・π₀・π₀.₅・GR00Tなどのモデルを切り替える | [モデルを引数で選ぶ](docs/methods/models.ja.md) |
+| 通常学習／VLASHと平滑化をキー操作で比較する | [1コマンドのベンチマーク](docs/four_condition_comparison.ja.md) |
 | 操作用PCから操作画面へ入り直す | [GUIへ接続する](docs/guide/desktop.ja.md) |
 
 各手順書には、入力場所・操作順・結果の確認・終了方法があります。その作業のページを開き、上から順に進めます。

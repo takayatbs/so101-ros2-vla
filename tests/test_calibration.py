@@ -2,11 +2,12 @@ import shutil
 import copy
 import json
 import math
+import os
 from pathlib import Path
 import pytest
 import yaml
 from so101_core.config import load_system, resolve
-from so101_core.calibration import apply, check, measure, measure_on_bus, settings_from_calibration
+from so101_core.calibration import apply, check, measure, measure_on_bus, capture_position, capture_range, settings_from_calibration
 from so101_core.hardware import validate_calibration
 from so101_core.feetech import TICK_RAD
 
@@ -70,17 +71,88 @@ class SimBus:
         assert self.read_calibration() == raw
 
 
-def test_measurement_all_joints_without_torque_or_goals(configuration):
+def test_measurement_all_joints_without_torque_or_goals(configuration, capsys):
     bus = SimBus(configuration["robot"]["leader"]["motors"])
-    def respond(prompt):
-        if "閉じた" in prompt: bus.position["gripper"] = 1400
-        if "開いた" in prompt: bus.position["gripper"] = 3000
-    result = measure_on_bus(bus, respond, lambda b, j: (600, 3400))
+    ranges, prompts = [], []
+    def capture(bus, name):
+        ranges.append(name)
+        if name == "gripper":
+            return 1400, 3000
+        return 600, 3400
+    result = measure_on_bus(bus, prompts.append, capture)
+    assert ranges == list(bus.motors)
+    assert len(prompts) == 1  # Only the initial reference pose uses a separate prompt.
     assert result["gripper"]["range_min"] == 1400 and result["gripper"]["range_max"] == 3000
     assert result["wrist_roll"]["range_min"] == 0 and result["wrist_roll"]["range_max"] == 4095
     assert all(v["homing_offset"] == 0 for v in result.values())
     assert not any(r == "Goal_Position" or (r == "Torque_Enable" and v != 0) for r, _, v in bus.writes)
     assert bus.read_calibration() == result
+    assert "動作確認用で、保存範囲は0〜4095" in capsys.readouterr().out
+
+
+def test_live_position_updates_until_enter_and_keeps_extrema(monkeypatch, capsys):
+    from so101_core import calibration as module
+    master, slave = os.openpty()
+    ticks = iter([2047, 3316, 795, 800])
+    class MovingBus:
+        def read(self, register, name):
+            assert (register, name) == ("Present_Position", "shoulder_lift")
+            tick = next(ticks)
+            if tick == 800:
+                os.write(master, b"\n")
+            return tick
+    try:
+        with os.fdopen(slave) as terminal:
+            monkeypatch.setattr(module.sys, "stdin", terminal)
+            result = capture_position(MovingBus(), "shoulder_lift", "測定後Enter")
+    finally:
+        os.close(master)
+    assert result == (800, 795, 3316, 4)
+    output = capsys.readouterr().out
+    assert "現在=2047  最小=2047  最大=2047" in output
+    assert "現在= 800  最小= 795  最大=3316" in output
+
+
+def test_wrist_roll_range_confirmation_uses_live_feedback(monkeypatch):
+    from so101_core import calibration as module
+    calls = []
+    def position(bus, name, instruction):
+        calls.append((name, instruction))
+        return 2047, 1700, 2400, 3
+    monkeypatch.setattr(module, "capture_position", position)
+    assert capture_range(object(), "wrist_roll") == (1700, 2400)
+    assert calls[0][0] == "wrist_roll"
+    assert "ケーブルが張らない" in calls[0][1]
+
+
+def test_gripper_sweep_keeps_extrema_after_returning_to_start(monkeypatch, capsys):
+    from so101_core import calibration as module
+    master, slave = os.openpty()
+    ticks = iter([2041, 2034, 3494, 2042])
+    class MovingBus:
+        def read(self, register, name):
+            assert (register, name) == ("Present_Position", "gripper")
+            tick = next(ticks)
+            if tick == 2042:
+                os.write(master, b"\n")
+            return tick
+    try:
+        with os.fdopen(slave) as terminal:
+            monkeypatch.setattr(module.sys, "stdin", terminal)
+            assert capture_range(MovingBus(), "gripper") == (2034, 3494)
+    finally:
+        os.close(master)
+    output = capsys.readouterr().out
+    assert "Enterを1回" in output
+    assert "現在=2042  最小=2034  最大=3494" in output
+
+
+@pytest.mark.parametrize("low,high,count", [(2047, 2047, 2), (100, 2500, 1), (0, 4095, 3)])
+def test_range_confirmation_rejects_incomplete_or_wrapped_movement(monkeypatch, low, high, count):
+    from so101_core import calibration as module
+    monkeypatch.setattr(module, "capture_position", lambda *args: (2047, low, high, count))
+    with pytest.raises(ValueError, match="測定範囲が小さすぎるか、回転境界"):
+        capture_range(object(), "wrist_roll")
 
 
 def test_aborted_measurement_restores_servo_and_preserves_json(configuration, monkeypatch):

@@ -13,6 +13,8 @@ def main():
     parser.add_argument('--config', help='Override runtime system YAML (container path)')
     parser.add_argument('--model-root', help='Registration root on this machine')
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--async-inference', action='store_true',
+                        help='Use the asynchronous scheduler for standard policies too; never enable AUTONOMOUS')
     parser.add_argument('--smoothing', choices=['none', 'three_point'], default='none',
                         help='Smooth arm goals; gripper goals remain unchanged (default: none)')
     args, extra = parser.parse_known_args()
@@ -46,6 +48,8 @@ def main():
         command.append('correction_checkpoint:='+args.correction)
     if args.smoothing != 'none':
         command.append('action_smoothing:='+args.smoothing)
+    if args.async_inference:
+        command.append('asynchronous_inference:=true')
     command.extend(extra)
     if args.dry_run:
         print(json.dumps(command, ensure_ascii=False))

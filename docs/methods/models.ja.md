@@ -137,6 +137,8 @@ LeRobotモデル向け補正器の特徴は、正規化した最新関節状態�
 
 ## 検証の範囲
 
+同じSmolVLAで通常学習／VLASHと平滑化なし／ありを比較する場合は、[4条件の比較手順](../four_condition_comparison.ja.md)を使います。比較用の通常版にも非同期実行を選べる `deploy_policy.sh --async-inference` を追加しています。直接ROS launchを使う場合は `asynchronous_inference:=true` です。いずれも自律動作の開始は既存のモード切り替えで行います。
+
 合成画像・関節データで、LeRobot ACTとDiffusionの短い学習、登録、公式processorの保存・読み込み、オフライン評価、A2C2の学習・推論を確認します。SmolVLA・π₀・π₀.₅では、実ネットワークの次元を小さくした試験で、元の速度場との一致、キャッシュ推論、clean-prefix学習の逆伝播、RTC誘導、推論時のprefix固定を確認します。
 
 GR00T・XVLAは小さくした実際のAction Headへ合成VLM特徴を渡し、元の時間条件付けとの一致、学習の逆伝播、RTC、prefix固定を確認します。ROSではLeRobot ACT＋VLASHのモデル準備完了、合成観測からの非同期指令、モード変更後の指令停止を試験します。

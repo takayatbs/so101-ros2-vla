@@ -11,6 +11,7 @@ def config_group(filename):
     for prefix, folder in (("system", "runtime"), ("camera", "cameras"),
                            ("record", "collection"), ("dataset", "dataset"),
                            ("observation", "observation"), ("policy", "policy"),
+                           ("benchmark", "benchmark"),
                            ("training", "training")):
         if filename.startswith(prefix) and filename.endswith('.yaml'):
             return folder

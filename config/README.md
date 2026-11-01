@@ -9,6 +9,7 @@
 | フォルダー | 用途 | 主に使うファイル |
 |---|---|---|
 | [collection/](collection/) | 作業名、操作者、本数、収集時間 | [record.yaml](collection/record.yaml) |
+| [benchmark/](benchmark/) | 比較モデル、試行数、時間制限と手動復帰時間 | [benchmark.yaml](benchmark/benchmark.yaml) |
 | [runtime/](runtime/) | 起動する設定一式を選ぶ | [640×480・共有H.264](runtime/system.real30hz.640x480.h264.yaml)、[640×480・Raw](runtime/system.real30hz.640x480.yaml) |
 | [hardware/](hardware/) | アームの接続、校正参照、Controller | [robot.yaml](hardware/robot.yaml)、[controllers.yaml](hardware/controllers.yaml) |
 | [control/](control/) | 手動操作の対応、監視と停止 | [teleop.yaml](control/teleop.yaml)、[safety.yaml](control/safety.yaml) |
@@ -18,7 +19,7 @@
 | [policy/](policy/) | 推論、動作列、手法ごとの実行条件 | [policy.real30hz.yaml](policy/policy.real30hz.yaml)、[policy.rtc.yaml](policy/policy.rtc.yaml) など |
 | [training/](training/) | ACTの構成と共通の学習条件 | [training.yaml](training/training.yaml) |
 | [calibration/](calibration/) | 実物ごとの校正JSONとカメラ校正例 | `leader.json`、`follower.json` |
-| [foxglove/](foxglove/) | 監視・収集用の表示レイアウト | [so101-collect-h264.json](foxglove/so101-collect-h264.json) |
+| [foxglove/](foxglove/) | 監視・収集用の表示レイアウト | [so101-collect-h264.json](foxglove/so101-collect-h264.json)、[比較用](foxglove/so101-benchmark-h264.json) |
 
 ## よく使う起動
 

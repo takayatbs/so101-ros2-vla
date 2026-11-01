@@ -19,7 +19,7 @@ def topic_type(topic):
         return "tf2_msgs/msg/TFMessage"
     if topic == "/diagnostics":
         return "diagnostic_msgs/msg/DiagnosticArray"
-    if topic == "/control_mode" or topic.endswith('/frame_metadata'):
+    if topic in ('/control_mode', '/policy/condition', '/benchmark/state', '/benchmark/events') or topic.endswith('/frame_metadata'):
         return "std_msgs/msg/String"
     if topic == "/hardware/motor_enable":
         return "std_msgs/msg/Bool"
@@ -47,6 +47,7 @@ class RecorderNode(SystemNode):
         self.subscriptions_kept = []
         self.types = {}
         topics = list(dict.fromkeys([*self.config["dataset"]["topics"],
+            '/policy/condition', '/benchmark/state', '/benchmark/events',
             *(f'/camera/{name}/frame_metadata' for name in self.config['camera']['cameras'])]))
         for topic in topics:
             type_name = topic_type(topic)
@@ -54,7 +55,7 @@ class RecorderNode(SystemNode):
             state = type_name in ("sensor_msgs/msg/JointState", "sensor_msgs/msg/Image", "tf2_msgs/msg/TFMessage")
             qos = QoSProfile(depth=30 if type_name == "foxglove_msgs/msg/CompressedVideo" else 10 if state else 100,
                              reliability=ReliabilityPolicy.BEST_EFFORT if state else ReliabilityPolicy.RELIABLE)
-            if topic in ("/tf_static", "/control_mode", "/episode/state"):
+            if topic in ("/tf_static", "/control_mode", "/episode/state", '/policy/condition', '/benchmark/state'):
                 qos.durability = DurabilityPolicy.TRANSIENT_LOCAL
             self.subscriptions_kept.append(self.create_subscription(
                 get_message(type_name), topic, lambda msg, t=topic: self.record(t, msg), qos))
@@ -112,7 +113,7 @@ class RecorderNode(SystemNode):
         identity = self.message_counts.get(topic,0)
         self.message_counts[topic] = identity+1
         cached_message = (msg,received,steady,identity)
-        if topic in ("/tf_static", "/control_mode", "/episode/state"):
+        if topic in ("/tf_static", "/control_mode", "/episode/state", '/policy/condition', '/benchmark/state'):
             self.latched[topic] = cached_message
         if self.types[topic] == "foxglove_msgs/msg/CompressedVideo":
             if is_keyframe(msg.data):

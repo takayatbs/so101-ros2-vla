@@ -186,9 +186,11 @@ def inspect_arm(config, role):
         bus.close()
 
 
-def capture_range(bus, name):
-    print(f"{name}: 手で安全な全範囲へゆっくり動かし、測定後Enterを押してください。", flush=True)
-    low, high, count = 4095, 0, 0
+def capture_position(bus, name, instruction):
+    """Show live feedback until Enter; return the selected position and extrema."""
+    print(f"{name}: {instruction}", flush=True)
+    low, high = 4095, 0
+    count = 0
     while True:
         tick = bus.read("Present_Position", name)
         if not 0 <= tick <= 4095:
@@ -200,6 +202,16 @@ def capture_range(bus, name):
                 raise EOFError("Terminal input closed")
             print()
             break
+    return tick, low, high, count
+
+
+def capture_range(bus, name):
+    instruction = "手で安全な全範囲へゆっくり動かし、測定後Enterを押してください。"
+    if name == "wrist_roll":
+        instruction = "ケーブルが張らない安全な範囲でゆっくりひねり、確認後Enterを押してください。"
+    elif name == "gripper":
+        instruction = "手で無理なく閉じた位置と開いた位置へゆっくり動かし、両方を測定後Enterを1回押してください。最小を閉位置、最大を開位置として保存します。"
+    _, low, high, count = capture_position(bus, name, instruction)
     if count < 2 or high-low < 64 or high-low > 4000:
         raise ValueError(f"{name}: 測定範囲が小さすぎるか、回転境界を跨いでいます")
     return low, high
@@ -227,16 +239,10 @@ def measure_on_bus(bus, input_fn=input, capture_fn=capture_range):
                      "range_min": 0, "range_max": 4095}
     for name in bus.motors:
         if name == "wrist_roll":
+            print("wrist_roll: 原点は中央姿勢で設定済みです。これから表示する最小・最大は動作確認用で、保存範囲は0〜4095です。", flush=True)
+            capture_fn(bus, name)
             continue
-        if name == "gripper":
-            input_fn("gripperを無理なく閉じた位置に手で合わせてEnter: ")
-            low = bus.read("Present_Position", name)
-            input_fn("gripperを無理なく開いた位置に手で合わせてEnter: ")
-            high = bus.read("Present_Position", name)
-            if not 0 <= low < high <= 4095 or high-low < 64:
-                raise ValueError("gripper: 閉位置 < 開位置、かつ64tick以上が必要。組立と方向を確認してください")
-        else:
-            low, high = capture_fn(bus, name)
+        low, high = capture_fn(bus, name)
         raw[name].update(range_min=low, range_max=high)
     validate_calibration(raw, bus.motors, bus.motors)
     bus.write_calibration(raw)

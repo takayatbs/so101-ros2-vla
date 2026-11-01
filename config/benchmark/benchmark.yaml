@@ -1,0 +1,14 @@
+# Copy to benchmark.local.yaml for your robot. Empty IDs select latest registered SmolVLA per method.
+backend: mock
+models:
+  standard: null
+  vlash: null
+trials_per_condition: 30
+seed: 42
+max_duration_s: 30
+reset_time_s: 30
+operator: evaluation
+success_rule: '30秒以内に物体を箱の内側へ入れて離す。試行中の人の介入なし。'
+output_root: ../../data/benchmarks
+startup_timeout_s: 600
+service_timeout_s: 15

@@ -46,7 +46,7 @@ def trained_methods(tmp_path_factory):
         'synchronization_config':alignment_settings(cfg['dataset'])}))
     exported=export_lerobot(native,root/'lerobot',encoder='libx264')
     models={}
-    for method in ('rtc','training_time_rtc','vlash'):
+    for method in ('standard','rtc','training_time_rtc','vlash'):
         args=SimpleNamespace(dataset=str(exported),config=str(config/f'runtime/system.real30hz.640x480.{method}.yaml'),
             method=method,steps=3,batch_size=2,dim_model=16,n_heads=2,n_layers=1,denoise_steps=4,
             device='cpu',seed=42,output=str(root/('train-'+method)),model_id=method+'-test')
@@ -87,6 +87,7 @@ def test_le_robot_export_training_all_methods_and_correction_integrity(trained_m
 
 @pytest.mark.ros
 @pytest.mark.parametrize('method', ['rtc','training_time_rtc','vlash','rtc+a2c2','vlash+a2c2',
+    'standard+async', 'standard+async+smooth',
     'rtc+smooth','training_time_rtc+smooth','vlash+smooth',
     'rtc+a2c2+smooth','vlash+a2c2+smooth','training_time_rtc+a2c2+smooth'])
 def test_ros_policy_warmup_async_output_and_mode_stop(trained_methods,monkeypatch,method):
@@ -105,7 +106,8 @@ def test_ros_policy_warmup_async_output_and_mode_stop(trained_methods,monkeypatc
     monkeypatch.setenv('ROS_DOMAIN_ID','97')
     rclpy.init(args=['--ros-args','-p',f'config:={folder}/runtime/system.real30hz.640x480.{profile}.yaml',
                     '-p','policy_backend:=flow','-p',f'model_id:={base}-test','-p',f'correction_checkpoint:={correction}',
-                    '-p','action_smoothing:='+('three_point' if method.endswith('+smooth') else 'none')])
+                    '-p','action_smoothing:='+('three_point' if method.endswith('+smooth') else 'none'),
+                    '-p','asynchronous_inference:='+('true' if 'async' in parts else 'false')])
     policy=PolicyNode();peer=rclpy.create_node('method_test_peer');executor=SingleThreadedExecutor()
     executor.add_node(policy);executor.add_node(peer)
     ready=[];actions=[]

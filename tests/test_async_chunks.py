@@ -238,3 +238,48 @@ def test_exhausted_chunk_still_stops(smoothing):
             engine.next(observation)
     finally:
         engine.close()
+
+
+@pytest.mark.parametrize('method', ['standard', 'rtc', 'training_time_rtc', 'vlash'])
+@pytest.mark.parametrize('smoothing', ['none', 'three_point'])
+def test_refill_uses_available_committed_window_under_timer_jitter(method, smoothing):
+    engine, clock, observation = scheduler(iter([.395, .425, .410] * 1000), method, smoothing)
+    clipped = False
+    try:
+        for tick in range(901):
+            clock[0] = tick/30 + (.008 if tick % 7 == 0 else 0)
+            engine.executor.complete()
+            action = engine.next(observation)
+            assert np.isfinite(action).all()
+            if engine.job is not None:
+                clipped |= engine.job['has_previous'] and engine.job['delay'] < engine.max_delay
+        assert engine.missed == 0
+        if method != 'vlash':
+            assert clipped
+    finally:
+        engine.close()
+
+
+def test_clipped_reservation_still_rejects_a_job_longer_than_remaining_trajectory():
+    engine, clock, observation = scheduler(iter([.395] * 100), 'standard')
+    try:
+        for tick in range(100):
+            clock[0] = tick/30 + (.008 if tick % 7 == 0 else 0)
+            engine.executor.complete()
+            engine.next(observation)
+            if engine.job is not None and engine.job['has_previous'] and engine.job['delay'] < engine.max_delay:
+                future, chunk, _, _ = engine.executor.pending
+                # Inside the configured maximum, outside the remaining plan.
+                latency = (engine.job['delay']+.5)/engine.fps
+                assert latency < engine.max_delay/engine.fps
+                finished = engine.job['requested_at']+latency
+                future.set_result((chunk, latency, finished))
+                engine.executor.pending = None
+                clock[0] = finished
+                with pytest.raises(ValueError, match='available trajectory window'):
+                    engine.next(observation)
+                assert engine.missed == 1
+                return
+        pytest.fail('Expected a clipped reservation under jitter')
+    finally:
+        engine.close()

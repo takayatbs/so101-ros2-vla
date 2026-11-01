@@ -24,6 +24,7 @@ class PolicyNode(SystemNode):
         self.declare_parameter("model_id", self.config["policy"]["model_id"])
         self.declare_parameter('correction_checkpoint','')
         self.declare_parameter('action_smoothing', 'none')
+        self.declare_parameter('asynchronous_inference', False)
         self.spec = self.config["policy"]
         self.sync = alignment_settings(self.config['dataset'])
         backend = self.get_parameter("policy_backend").value
@@ -75,7 +76,9 @@ class PolicyNode(SystemNode):
             raise ValueError('Unknown action smoothing method')
         self.engine = None
         self.engine_failed = False
-        if backend in ('flow','lerobot') and (chunk['scheduler']['method'] != 'standard' or chunk['correction']['method'] != 'none'):
+        if backend in ('flow','lerobot') and (chunk['scheduler']['method'] != 'standard'
+                or chunk['correction']['method'] != 'none'
+                or self.get_parameter('asynchronous_inference').value):
             from so101_core.async_chunks import AsyncChunkScheduler
             from so101_core.flow import A2C2
             correction = None
@@ -221,6 +224,9 @@ class PolicyNode(SystemNode):
                 self.diagnostic(DiagnosticStatus.OK,'Asynchronous flow action',
                     scheduler=self.engine.method,correction=self.spec['action_chunk']['correction']['method'],
                     inference_latency_s=self.engine.latency_s,missed_inference_deadlines=self.engine.missed,
+                    reserved_delay_steps=self.engine.job['delay'] if self.engine.job else None,
+                    committed_steps_remaining=max(0, len(self.engine.chunk)-(self.engine.last_step-self.engine.start))
+                        if self.engine.chunk is not None else 0,
                     action_smoothing=self.engine.smoothing,
                     raw_chunk_roughness_rad=self.engine.raw_roughness_rad,
                     filtered_chunk_roughness_rad=self.engine.filtered_roughness_rad,

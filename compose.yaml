@@ -69,3 +69,4 @@ volumes:
   gui-home:
     # Persist the desktop home across container recreation.
     name: ${SO101_HOME_VOLUME:-so101-ros2-vla-home}
+    external: ${SO101_HOME_VOLUME_EXTERNAL:-false}

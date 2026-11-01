@@ -11,6 +11,7 @@ import time
 
 import numpy as np
 import pytest
+import yaml
 
 rclpy = pytest.importorskip('rclpy')
 from rclpy.executors import SingleThreadedExecutor
@@ -33,6 +34,12 @@ pytestmark = pytest.mark.ros
 def test_grasp_warning_keeps_control_and_recording_active_then_fatal_stops(tmp_path, monkeypatch, fatal):
     folder = tmp_path/'config'
     shutil.copytree(Path(__file__).resolve().parents[1]/'config', folder)
+    monkeypatch.setenv('SO101_USE_LOCAL_CONFIG', '0')
+    # Only this temporary fixture uses a simulated, qualified serial adapter.
+    robot_path = folder/'hardware/robot.yaml'
+    robot = yaml.safe_load(robot_path.read_text())
+    robot['hardware_qualified'] = True
+    robot_path.write_text(yaml.safe_dump(robot))
     monkeypatch.setenv('ROS_DOMAIN_ID', str(100+os.getpid()%100))
 
     class GraspBus:

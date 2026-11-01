@@ -59,7 +59,7 @@ python -c 'import sys; print(sys.executable)'
 | `/workspace` | ホストのプロジェクトを共有。データは `data/`、ROSは `ros2_ws/` |
 | `/home/dev` | MATE設定・ホーム内ファイルをNamed volumeへ保存 |
 
-ホームVolumeの既定名は `so101-ros2-vla-home` です。既存Volumeを使う場合は `.env` の `SO101_HOME_VOLUME` へその名前を指定します。通常のコンテナ再作成では、共有ファイルとホームVolumeを保持します。
+ホームVolumeの既定名は `so101-ros2-vla-home` です。既存Volumeを引き継ぐ場合は `.env` の `SO101_HOME_VOLUME` へその名前を指定し、`SO101_HOME_VOLUME_EXTERNAL=true` とします。外部Volumeとして扱うことで、別のComposeプロジェクトからも引き継げます。通常のコンテナ再作成では、共有ファイルとホームVolumeを保持します。
 
 ## パスワード・画面サイズを変更する
 
